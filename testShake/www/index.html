@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+<head>
+    <title>Blank Cordova Mobile App Project Template (Lite)</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+        /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+    </style>
+
+    <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+    <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+    <script type="text/javascript" src="js/shake.js"></script>
+<script>
+document.addEventListener(
+    "deviceready", 
+    function () {
+        var myShakeEvent = new Shake({
+            threshold: 10
+        });
+        // alert(JSON.stringify(myShakeEvent));
+        myShakeEvent.start();
+        // alert("OK3");
+        window.addEventListener(
+            'shake', 
+            function () {
+                navigator.notification.beep(1);
+                alert("Shake!!")
+            }, 
+            false);
+        // alert("Done");
+    }, // end of deviceready
+    false
+);
+</script>
+</head>
+
+<body>
+
+    <p>Shake to test this application!</p>
+
+</body>
+</html>

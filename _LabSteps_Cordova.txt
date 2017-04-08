@@ -1,0 +1,280 @@
+﻿Lab: 以 Intel XDK 實作 Cordova 手機應用程式
+
+
+
+
+
+1.	下載與安裝「Intel XDK」
+
+
+1.1	Google: 「Intel XDK」或者直接連到 Intel XDK 官網:
+	https://software.intel.com/en-us/intel-xdk
+
+
+1.2	下載 Intel XDK 安裝程式
+
+
+1.3	執行下載回來的安裝程式
+
+
+1.4	第一次啟動 Intel XDK 時，會要求註冊，請依畫面指示輸入E-mail、密碼等資料。
+
+
+
+
+2.	新增專案
+
+
+2.1	先點按主畫面左上角的「Projects」
+
+
+2.2	再點按主畫面左下角的「START A NEW PROJECT」
+
+
+2.3	左側邊欄偏中間的 HTML5 COMPANION HYBRID MOBILE OR WEB APP 分類
+	點按「+」 展開 Templates 
+
+
+2.4	選擇 「HTML5 + Cordova」這個專案範本
+
+
+2.5	點按右下角的「Continue」按鈕
+
+
+2.6	Project Diretory 選擇(例如) C:\Lab
+
+
+2.7	Project Name: testCordova
+
+
+2.8	點按右下角的「Create」按鈕
+
+
+
+
+3.	套用 jQuery Mobile
+
+
+3.1	先點按主畫面上方的「DEVELOP」頁籤
+
+
+3.2	左側邊欄，滑鼠右鍵點按「www」| Show in Explorer 
+
+	<Note> 檔案總管會直接帶出 www 資料夾以方便我們修改資料夾內容
+
+
+3.3	將本次練習 template 資料夾的內容(資料夾+檔案)複製貼上到 www 資料夾
+
+
+3.4	左側邊欄點按「www」展開，其中應該會有: 
+	js 資料夾，index.html 與 init_code.txt
+
+
+3.5	點按 init_code.txt 開啟該檔案
+
+
+3.6	將 <!-- HEAD --> 的內容貼到 index.html 的 </head> 前一行
+
+
+3.7	將 init_code.txt <!-- BODY --> 的內容貼到 index.html
+	取代原 <body> 的內容
+
+
+3.8	組合鍵 Ctrl + S 儲存檔案
+
+
+
+
+4.0	測試程式
+
+
+4.1	點按主畫面上方的「SIMULATE」頁籤
+
+
+4.2	畫面上方工具列從左到右，
+	選「Android小機器人」
+	HTC Droid Incredible
+	圓形的「>」按鈕
+
+
+4.3	試用一下手機模擬器，然後切換回「DEVELOP」頁籤
+
+
+4.4	在 <div data-role="content"> 元素內部，置入下列內容:
+
+	<input type="button" id="btnTest" value="Test" />
+	<br>
+	<div id="googleMap" style="width: 100%; height: 300px; border: 1px solid gray;"></div>
+	<div id="debug"></div>
+
+
+4.5	Ctrl + S 儲存檔案
+
+
+4.6	切換到手機模擬器，試用新的畫面
+
+
+
+5.	偵測 GPS 位置
+
+
+5.1	先點按主畫面左上角的「Projects」
+
+
+5.2	確認目前選擇的焦點是我們這次的「testCordova」專案
+
+
+5.3	點按「+ Plugin Management」 展開 「Plugin Management」
+	點按「Add Plugins to this Project」
+
+
+5.4	選擇 Geolocation，點按「Add Plugin」，回答「OK」
+
+
+5.5	切換回「DEVELOP」頁籤，針對 index.html，加入下列程式到 </head> 的前一行:
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+
+        $("#btnTest").click(function () {
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    var p = position.coords.latitude + "," + position.coords.longitude;
+                    $("#debug").html(p);                    
+                }, 
+                function (e) { alert("error!") }
+            );
+            
+        })
+        
+    }, // end of deviceready
+    false
+);
+
+</script>
+
+
+5.6	組合鍵 Ctrl + S 儲存檔案
+
+
+5.7	關閉手機模擬器，點按主畫面上方的「SIMULATE」頁籤，然後重新啟動手機模擬器
+
+
+5.8	地圖位置請挪動到台灣，點按手機模擬器的「Test」按鈕以取得 GPS 座標。
+
+
+
+
+6	利用 Google Map 繪製地圖
+
+
+6.1	在 index.html <head> 元素內，貼入下列這行: (引用 Google Map API)
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA6gcpi9-EnxyDjXeWzkU9DHpyB5iyEUvY"></script>
+
+
+6.2	將上述 5.5 的 JavaScript 程式，改成這樣:
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+
+        $("#btnTest").click(function () {
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    
+                    var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    var mapProp = {
+                        center : currentPosition,
+                        zoom : 14,
+                        mapTypeId : google.maps.MapTypeId.ROADMAP
+                    };
+                    
+                    // 繪製地圖
+                    var map = new google.maps.Map(
+                            googleMap,
+                            mapProp);
+
+  
+                    
+                    
+                }, 
+                function (e) { alert("error!") }
+            );
+            
+        })
+        
+    }, // end of deviceready
+    false
+);
+
+</script>
+    
+    
+
+6.3	組合鍵 Ctrl + S 儲存檔案
+
+
+6.4	點按手機模擬器的「Test」按鈕以測繪地圖。
+
+
+6.5	將 JavaScript 程式再改成這樣: (完成後，Ctrl + S 儲存檔案，測試程式)
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+
+        $("#btnTest").click(function () {
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    
+                    var currentPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    var mapProp = {
+                        center : currentPosition,
+                        zoom : 14,
+                        mapTypeId : google.maps.MapTypeId.ROADMAP
+                    };
+                    
+                    // 繪製地圖
+                    var map = new google.maps.Map(
+                            googleMap,
+                            mapProp);
+
+                    // 加上圖標
+                    var marker = new google.maps.Marker({
+                           position: currentPosition
+                           });
+
+                    marker.setMap(map);     
+                    
+                    
+                    // 圖標提示文字
+                    var infowindow = new google.maps.InfoWindow(
+                            {content: "I'm here"}
+                        );
+
+                    infowindow.open(map,marker);    
+                    
+                    
+                }, 
+                function (e) { alert("error!") }
+            );
+            
+        })
+        
+    }, // end of deviceready
+    false
+);
+
+</script>
+    
+

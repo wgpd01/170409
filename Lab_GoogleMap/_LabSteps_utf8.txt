@@ -1,0 +1,115 @@
+﻿Lab: 使用 Google Map 服務
+
+
+
+1.1 以 HTML Editor 開啟 Lab_Map_0.html，瀏覽網頁的內容架構。
+
+
+1.2 在 head 區塊引用 Google Map API 的 JavaScript，如下:
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyA6gcpi9-EnxyDjXeWzkU9DHpyB5iyEUvY"></script>
+
+
+1.3 在 data-role="content" 的 div 置入下列元素:
+<div id="googleMap" style="width: 100%; height: 400px;"></div>
+
+
+1.4 在 </body> 前一行，貼入下列程式，存檔後，在瀏覽器觀看並試用 Google Map 畫面。
+
+<script>
+    var mapProp = {
+        center : new google.maps.LatLng(25.047755664726715,121.51703953742981),
+        zoom : 12,
+        mapTypeId : google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(
+            $("#googleMap")[0],
+            mapProp);
+</script>
+
+
+1.5 請試著回答下列問題:
+    (1) google.maps.LatLng 與 google.maps.Map 是由哪一個 JavaScript 定義的?
+    (2) 建構 google.maps.LatLng 座標物件時，分別傳入什麼參數?
+    (3) 建構 google.maps.Map 物件時，分別傳入什麼參數?
+    (4) zoom: 的值愈大，看到的地圖離地表愈近嗎?
+    (5) google.maps.MapTypeId.ROADMAP 除了 ROADMAP 還可以是什麼?
+
+
+
+
+2.0 加上圖標:
+
+
+2.1 繼續加寫下列程式，完成後，在瀏覽器觀看執行效果。
+
+    var marker = new google.maps.Marker({
+           position: new google.maps.LatLng(25.047755664726715,121.51703953742981)
+           });
+
+    marker.setMap(map);
+    
+    
+2.2 為 Marker 物件加寫 animation 屬性，如下:
+    var marker = new google.maps.Marker({
+           position: new google.maps.LatLng(25.047755664726715,121.51703953742981),
+           animation: google.maps.Animation.BOUNCE
+           });
+
+    marker.setMap(map);    
+    
+
+(Optional)
+2.3 仿上述程式，幫忙在地圖額外標註另一個 Marker。
+
+
+2.4 幫 Marker 加上提示文字: 
+    var infowindow = new google.maps.InfoWindow(
+            {content: "Hello Taiwan!"}
+        );
+
+    infowindow.open(map,marker);
+
+
+2.5 下列程式可畫出一個圓形範圍，請試試看:
+
+    var shapeTaipei = new google.maps.Circle({
+          center: new google.maps.LatLng(25.047755664726715,121.51703953742981),
+          radius: 6000,
+          strokeColor: "#0000FF",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#0000FF",
+          fillOpacity: 0.2
+          });
+
+    shapeTaipei.setMap(map);
+
+
+
+
+3.  事件處理程式
+
+3.1 去除 Marker 的 animation 屬性，此外，也一併去除 2.5 畫出圓形範圍的程式。
+
+
+3.2 加寫下列程式，完成後，在瀏覽器試用滑鼠點按 Marker 後的反應。
+
+        google.maps.event.addListener(marker, 'click', 
+          function() {
+            map.setZoom(18);
+            map.setCenter(marker.getPosition());
+          });
+          
+          
+3.3 繼續加寫下列程式，完成後，在瀏覽器測試滑鼠點按地圖後的反應。
+        google.maps.event.addListener(map, 'click', function(event) {
+            var marker = new google.maps.Marker({
+                position : event.latLng,
+                map : map,
+            });
+            var infowindow = new google.maps.InfoWindow({
+                content: '(' + event.latLng.lat() + ','+ event.latLng.lng() + ')'
+            });
+            infowindow.open(map, marker);
+        });
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+<head>
+    <title>Blank Cordova Mobile App Project Template (Lite)</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+    <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+        /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+    </style>
+
+    <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+    <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+    <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+	<link rel="stylesheet" href="js/jquery.mobile-1.3.2.min.css" />
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery.mobile-1.3.2.min.js"></script>
+
+<script>
+// Plugin: InAppBrowser
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                // window.location.href = "http://www.hinet.net";
+                // window.location.assign("http://www.udn.com");
+                cordova.InAppBrowser.open(
+                    "http://www.hinet.net",
+                    "_blank",
+                    "location=yes,toolbar=yes"
+                );
+                
+            }    
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+                cordova.InAppBrowser.open(
+                    "http://www.hinet.net",
+                    "_self",
+                    "location=yes,toolbar=yes"
+                );
+                
+            }    
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+                cordova.InAppBrowser.open(
+                    "http://www.hinet.net",
+                    "_system",
+                    "location=yes,toolbar=yes"
+                );
+                
+            }    
+        )
+        
+        
+    }, // end of deviceready
+    false
+);
+</script>
+    
+</head>
+
+<body>
+
+	<div id="labPage" data-role="page" data-theme="d">
+		
+		<div data-role="header">
+			<a href="#labPanel" data-role="button" data-icon="info"
+				data-iconpos="notext"></a>
+			<h3>Lab</h3>
+		</div>
+		
+		<div data-role="content">
+			
+			
+			
+			
+            <input type="button" id="btnTest" value="_blank" />
+            <br>
+            <input type="button" id="btnTry" value="_self" />
+            <br>
+            <input type="button" id="btnLab" value="_system" />
+			
+			
+			
+			
+			
+		</div>
+		
+		<div id="labPanel" data-role="panel" data-position="left"
+			data-display="overlay" data-theme="c">
+			<h4>Lab</h4>
+			<p>...</p>
+
+			<a href="#labPage" data-rel="close" data-role="button">Close</a>
+		</div>
+		<!-- /panel -->
+	</div>
+	<!-- page -->
+
+
+</body>
+</html>

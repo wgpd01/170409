@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="directoryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="managerId" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="department" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="officePhone" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="cellPhone" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="picture" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="directoryModelStoreContainer">
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

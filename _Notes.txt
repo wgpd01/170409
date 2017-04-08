@@ -1,0 +1,758 @@
+PhoneGap Build 網址:
+https://build.phonegap.com/
+
+
+Intel XDK 官網:
+https://software.intel.com/en-us/intel-xdk
+
+
+
+A simple online fake REST API server
+https://github.com/typicode/jsonplaceholder#how-to
+
+
+
+// --------------------------------------------------------------------------------
+// 100
+
+    $("#btnTest").click(function () {
+        $.ajax({
+            type: "get",
+            url: "http://jsonplaceholder.typicode.com/posts/3",
+            dataType: "json",
+            success: function (data) {
+                $("#info").text(JSON.stringify(data));
+            }
+        });
+        // $("#info").text("OK");
+    })
+
+
+// --------------------------------------------------------------------------------
+// 110
+
+    window.addEventListener(
+        "batterystatus",
+        function (info) {
+            $("#debug")
+                .append("Batter: " + info.level + "<br>")
+                .append("IsPlug: " + info.isPlugged + "<hr>");
+        },
+        false
+    );
+
+// --------------------------------------------------------------------------------
+// 120
+
+<script>
+        document.addEventListener(
+            "deviceready", 
+            function () {
+                $("#info").empty();
+                $("#info").append("<li>" + device.cordova + "</li>");
+                $("#info").append("<li>" + device.model + "</li>");
+                $("#info").append("<li>" + device.platform + "</li>");
+                $("#info").append("<li>" + device.uuid + "</li>");
+                $("#info").append("<li>" + device.version + "</li>");
+                $("#info").append("<li>" + device.isVirtual + "</li>");
+                $("#info").append("<li>" + device.serial + "</li>");
+                $("#info").listview("refresh");
+            }, 
+            false
+        );
+    </script>
+
+
+// --------------------------------------------------------------------------------
+// 200
+A custom 'shake' event plugin for mobile web browsers using device accelerometer. 
+https://github.com/alexgibson/shake.js/
+
+
+
+// --------------------------------------------------------------------------------
+// 210
+
+
+//    delayTime(3000); // delay 3 seconds.
+function delayTime(value) {
+	var now = new Date().getTime();
+	while (new Date().getTime() < now + value) { 
+		  /* do nothing */ 
+	}     
+}
+
+
+
+
+// --------------------------------------------------------------------------------
+// 220
+// UI
+
+
+<input type="button" id="btnTest" value="Test" />
+<br>
+<input type="button" id="btnTry" value="Try" />
+<br>
+<input type="button" id="btnLab" value="Lab" />
+
+
+
+
+// --------------------------------------------------------------------------------
+// 230
+
+
+<script>
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                StatusBar.backgroundColorByHexString("#FF0000");
+            }    
+        )
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 240
+// Plugin: notification
+
+
+<script>
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                navigator.notification.alert(
+                    "Message Content",
+                    function () {
+                        $("#btnTest").prop("value", "button clicked");
+                        $("#btnTest").button("refresh");
+                    },
+                    "Title",
+                    "Roger!"
+                );
+                
+            }  
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+                navigator.notification.confirm(
+                    "Are you sure to ...?",
+                    function (buttonIndex) {
+                        $("#btnTry").prop("value", buttonIndex);
+                        $("#btnTry").button("refresh");
+                    },
+                    "Asking",
+                    ["是", "否", "取消"]
+                );
+                
+            }  
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+                navigator.notification.prompt(
+                    "What your name?",
+                    function (result) {
+                        $("#btnTry").prop("value", result.buttonIndex);
+                        $("#btnTry").button("refresh");
+                        $("#btnLab").prop("value", result.input1);
+                        $("#btnLab").button("refresh");
+                    },
+                    "Asking",
+                    ["重新輸入", "完成"],
+                    "Hello"
+                );
+                navigator.beep(2);
+            }    
+        )
+
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 250
+// plugin: NetworkInformation
+
+
+<script>
+    
+function checkConnection() {
+   var networkState = navigator.network.connection.type;
+   if (networkState == Connection.NONE) {
+      alert("No network available!");
+   }   
+}
+
+document.addEventListener(
+    "online", 
+    function () {
+        alert("online");
+    },
+    false
+)
+
+document.addEventListener(
+    "offline", 
+    function () {
+        alert("offline");
+    },
+    false
+)
+    
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                checkConnection();
+            }  
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+                navigator.notification.beep(3);
+            }  
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+                navigator.app.exitApp();
+            }    
+        )
+
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 260
+// plugin: InAppBrowser
+
+
+<script>
+    
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                var browser = cordova.InAppBrowser.open(
+                    "http://apache.org", 
+                    "_self", 
+                    "location=yes");
+            }  
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+                var browser = cordova.InAppBrowser.open(
+                    "http://apache.org", 
+                    "_blank", 
+                    "location=yes");
+                broswer.addEventListener
+            }  
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+                var browser = cordova.InAppBrowser.open(
+                    "http://apache.org", 
+                    "_system", 
+                    "location=yes");
+            }    
+        )
+
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+// --------------------------------------------------------------------------------
+// 270
+// Plugin: File
+
+
+<script>
+    
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                var filePath = cordova.file.applicationDirectory;
+                
+                $("#btnTest")
+                    .prop("value", filePath)
+                    .button("refresh");
+                
+            }  
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+               // var filePath = cordova.file.applicationStorageDirectory;
+               var filePath = cordova.file.externalRootDirectory;
+                
+                $("#btnTry")
+                    .prop("value", filePath)
+                    .button("refresh");
+
+            }  
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+               var filePath = cordova.file.cacheDirectory;
+                
+                $("#btnLab")
+                    .prop("value", filePath)
+                    .button("refresh");
+
+            } 
+        )
+
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+// 310
+Plugin: File
+Reference:
+https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/
+
+
+UI:
+
+<input type="button" id="btnTest" value="Test" />
+<input type="button" id="btnTry" value="Try" />
+<input type="button" id="btnLab" value="Lab" />
+<div id="debug"></div>			
+
+
+<script>
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                // var filePath = cordova.file.dataDirectory;;
+                // $("#btnTest").val(filePath).button("refresh");
+                
+                resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) {
+                    $("#debug").append("got dir" + "<hr>");
+                    $("#debug").append(JSON.stringify(dir) + "<hr>");
+                    dir.getFile("log.txt", {create: true}, function (file) {
+                        $("#debug").append("got file" + "<hr>");
+                        // $("#debug").append(JSON.stringify(file) + "<hr>");
+                        file.createWriter(function (writer) {
+                            $("#debug").append("got writer" + "<hr>");
+                            writer.seek(writer.length);
+                            writer.write(Date());
+                            $("#debug").append(Date() + "<hr>");
+                        })
+                        
+                    })
+                })
+                
+                // alert("OK");
+            }  
+            
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+                resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) {
+                    $("#debug").html("");
+                    $("#debug").append("got dir" + "<hr>");
+                    $("#debug").append(JSON.stringify(dir) + "<hr>");
+                    dir.getFile("log.txt", {}, function (fileEntry) {
+                        $("#debug").append("got fileEntry" + "<hr>");
+                        // $("#debug").append(JSON.stringify(file) + "<hr>");
+                        fileEntry.file(function (file) {
+                            $("#debug").append("got file" + "<hr>");
+                            var reader = new FileReader();
+                            reader.onloadend = function () {
+                                $("#debug").append("load end" + "<hr>");
+                                var content = this.result;
+                                $("#debug").append(content + "<hr>");
+                            }
+                            reader.readAsText(file);
+                        })
+                        
+                    })
+                })
+                
+                // alert("OK");
+
+            }  
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+
+            } 
+        )
+
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 320
+Plugin: File (part two)
+
+
+<script>
+    
+document.addEventListener(
+    "deviceready", 
+    function () {
+        $("#btnTest").on(
+            "click",
+            function () {
+                // var filePath = cordova.file.dataDirectory;
+                // $("#btnTest").val(filePath).button("refresh");
+                var path = cordova.file.dataDirectory;
+                
+                window.resolveLocalFileSystemURL(path, function (directoryEntry) {
+                    // debug.innerHTML = JSON.stringify(directoryEntry); 
+                    directoryEntry.getFile("test.txt", {create: true}, function (fileEntry) {
+                        // debug.innerHTML = JSON.stringify(fileEntry);
+                        fileEntry.createWriter(function (writer) {
+                            writer.seek(writer.length);
+                            writer.write("content of test.txt");
+                            $("#btnTest").val("OK").button("refresh");
+                        });
+                    });
+                });
+                
+                alert("OK");
+            }  
+            
+        )
+        
+        $("#btnTry").on(
+            "click",
+            function () {
+                var path = cordova.file.dataDirectory;
+                
+                window.resolveLocalFileSystemURL(path + "test.txt", function (fileEntry) {
+                    fileEntry.createWriter(function (writer) {
+                        writer.seek(writer.length);
+                        writer.write(Date()); 
+                        $("#btnTry").val("OK").button("refresh");
+                    });
+                });                
+                alert("OK");
+            }  
+        )
+        
+        $("#btnLab").on(
+            "click",
+            function () {
+                var path = cordova.file.dataDirectory;
+                
+                window.resolveLocalFileSystemURL(path + "test.txt", function (fileEntry) {
+                    fileEntry.file(function (file) {
+                        var reader = new FileReader();
+                        reader.onloadend = function () {
+                            debug.innerHTML = this.result;
+                        }
+                        reader.readAsText(file);
+                    })
+                });
+                alert("OK");
+            } 
+        )
+
+    }, // end of deviceready
+    false
+);
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 330
+Plugin: Camera, File
+
+UI:
+
+
+<div class="ui-grid-a">
+    <div class="ui-block-a"><input type="button" id="btnURL" value="URL" /></div>
+    <div class="ui-block-b"><input type="button" id="btnURI" value="URI" /></div>
+</div>			
+<image id="img" src="images/test.jpg" style="width: 100%"></image>
+
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+        
+        btnURL.addEventListener("click", function () {
+            var options = {
+                    quality: 50, 
+                    destinationType: Camera.DestinationType.DATA_URL,
+                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            };
+            navigator.camera.getPicture(function (imageData) {
+                img.src = "data:image/jpeg;base64," + imageData;
+            }, function () {}, options);
+        })
+
+        btnURI.addEventListener("click", function () {
+            var options = {
+                    quality: 50, 
+                    destinationType: Camera.DestinationType.FILE_URI,
+                    sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+            };
+            navigator.camera.getPicture(function (imageData) {
+                console.log(imageData);
+                img.src = imageData;
+            }, function () {}, options);
+        })
+
+    }, // end of deviceready
+    false
+);
+
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 340
+Plugin: Device Motion
+Reference:
+https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-device-motion/index.html
+
+
+UI:
+
+<input type="button" id="btnTest" value="Test" />
+<br>
+<div id="debug"></div>
+
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+        
+
+        $("#btnTest").on(
+            "click",
+            function () {
+                navigator.accelerometer.getCurrentAcceleration(
+                    function (e) {
+                        var report = 
+                            'X: ' + e.x + '<br>' +
+                            'Y: ' + e.y + '<br>' +
+                            'Z: ' + e.z + '<br>' +
+                            'Timestamp: '      + e.timestamp + '<br>'
+                        $("#debug").html(report);
+                    }, 
+                    function (e) { }
+                );
+            }  
+            
+        )
+
+        
+
+    }, // end of deviceready
+    false
+);
+
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 350
+accelerometer (part two)
+
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+        
+        var options = { frequency: 500 };
+
+        var watchID = 
+            navigator.accelerometer.watchAcceleration(
+                function (e) {
+                    var report = 
+                        'X: ' + e.x + '<br>' +
+                        'Y: ' + e.y + '<br>' +
+                        'Z: ' + e.z + '<br>' +
+                        'Timestamp: '      + e.timestamp + '<br>'
+                    $("#debug").html(report);
+                }, 
+                function () { }, 
+                options
+            );        
+
+        $("#btnTest").click(function () {
+            navigator.accelerometer.clearWatch(watchID);
+        })
+        
+    }, // end of deviceready
+    false
+);
+
+</script>
+
+
+
+
+--------------------------------------------------------------------------------
+// 360
+Plugin: Geolocation
+Reference: 
+https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-geolocation/index.html
+
+
+UI:
+
+<input type="button" id="btnTest" value="Test" />
+<br>
+<div id="debug"></div>
+
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+
+        $("#btnTest").click(function () {
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    var report = 
+                        'Latitude: '          + position.coords.latitude          + '<br>' +
+                        'Longitude: '         + position.coords.longitude         + '<br>' +
+                        'Altitude: '          + position.coords.altitude          + '<br>' +
+                        'Accuracy: '          + position.coords.accuracy          + '<br>' +
+                        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '<br>' +
+                        'Heading: '           + position.coords.heading           + '<br>' +
+                        'Speed: '             + position.coords.speed             + '<br>' +
+                        'Timestamp: '         + position.timestamp                + '<br>';
+                    $("#debug").html(report);
+                }, 
+                function (e) { alert("error!") }
+            );
+            
+        })
+        
+    }, // end of deviceready
+    false
+);
+
+</script>
+
+
+
+
+// --------------------------------------------------------------------------------
+// 370
+Plugin: Geolocation (part two)
+
+
+<script>
+
+document.addEventListener(
+    "deviceready", 
+    function () {
+        
+        var watchID = navigator.geolocation.watchPosition(
+            function(position) {
+                var report = 
+                    'Latitude: ' + position.coords.latitude + '<br>' +
+                    'Longitude: ' + position.coords.longitude;
+                $("#debug").html(report);
+            }, 
+            function (e) {  }, 
+            { timeout: 3000 }
+        );
+
+        $("#btnTest").click(function () {
+            
+            navigator.geolocation.clearWatch(watchID);
+            
+        })
+        
+    }, // end of deviceready
+    false
+);
+
+</script>
+
+
+
+
+--------------------------------------------------------------------------------
+
+
